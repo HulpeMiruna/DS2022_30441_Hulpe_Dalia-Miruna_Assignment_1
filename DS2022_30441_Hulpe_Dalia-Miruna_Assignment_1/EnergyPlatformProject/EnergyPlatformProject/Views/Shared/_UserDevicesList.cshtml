@@ -1,0 +1,34 @@
+﻿@using EnergyPlatformProject.Models
+@model UserPortalViewModel
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<div>
+    <table class="table table-striped table-borderless table-responsive-sm ">
+        <thead>
+            <tr class="table-head">
+                <th>Address</th>
+                <th>Description</th>
+                <th>Max energy hours </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Devices.Count; i++)
+            {
+                <tr>
+                    <td class="table-element-custom">@Model.Devices[i].Address</td>
+                    <td class="table-element-custom">@Model.Devices[i].Description</td>
+                    <td class="table-element-custom">@Model.Devices[i].MaximuHourlyEnergyConsumtion</td>
+                    <td class="table-element-custom">
+                        <a asp-controller="Device" asp-action="Consumption" asp-route-id="@Model.Devices[i].Id" style="color:black">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

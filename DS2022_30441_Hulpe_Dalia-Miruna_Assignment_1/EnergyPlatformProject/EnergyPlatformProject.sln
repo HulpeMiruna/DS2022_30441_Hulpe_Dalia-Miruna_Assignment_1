@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyPlatformProject", "EnergyPlatformProject\EnergyPlatformProject.csproj", "{47E3AC02-7A9D-469E-9C23-C5C13FA1D2B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyPlatformProgram.Repository", "EnergyPlatformProgram.Repository\EnergyPlatformProgram.Repository.csproj", "{E6BDECF5-C8C7-4932-8FB1-34763CDFC3A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyPlatformProgram.BusinessLogic", "EnergyPlatformProgram.BusinessLogic\EnergyPlatformProgram.BusinessLogic.csproj", "{19419136-82A4-4A88-8293-B77C01C24AD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47E3AC02-7A9D-469E-9C23-C5C13FA1D2B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47E3AC02-7A9D-469E-9C23-C5C13FA1D2B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47E3AC02-7A9D-469E-9C23-C5C13FA1D2B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47E3AC02-7A9D-469E-9C23-C5C13FA1D2B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BDECF5-C8C7-4932-8FB1-34763CDFC3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BDECF5-C8C7-4932-8FB1-34763CDFC3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BDECF5-C8C7-4932-8FB1-34763CDFC3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BDECF5-C8C7-4932-8FB1-34763CDFC3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19419136-82A4-4A88-8293-B77C01C24AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19419136-82A4-4A88-8293-B77C01C24AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19419136-82A4-4A88-8293-B77C01C24AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19419136-82A4-4A88-8293-B77C01C24AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BCF0844-4985-4E68-9865-228B74B01F35}
+	EndGlobalSection
+EndGlobal

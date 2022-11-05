@@ -1,0 +1,10 @@
+﻿@using EnergyPlatformProject.Models
+@model DeviceAddOwnerViewModel
+<form asp-controller="Device" asp-action="AlocateOwner" method="post">
+    <input type="hidden" asp-for="DeviceId" class="form-control">
+    <select asp-for="OwnerEmail"
+            asp-items="@Model.UserEmails">
+        <option>Users</option>
+    </select>
+    <button type="submit" class="btn btn-info">Add owner</button>
+</form>

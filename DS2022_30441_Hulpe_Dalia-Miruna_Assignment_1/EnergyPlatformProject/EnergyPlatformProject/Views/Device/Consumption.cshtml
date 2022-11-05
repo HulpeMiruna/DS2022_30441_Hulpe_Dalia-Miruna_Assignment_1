@@ -1,0 +1,57 @@
+﻿@using EnergyPlatformProject.Models
+@model ConsumptionViewModel
+
+
+<form asp-controller="Device" asp-action="Consumption" method="get">
+    <input asp-for="Id" hidden />
+    <label asp-for="Date"></label>
+    <input asp-for="Date" class="form-control" type="date" />
+    <button type="submit" class="btn btn-info">Submit</button>
+</form>
+
+@if (Model.ConsumptionHour.Count() != 0)
+{
+    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+}
+else
+{
+    <p>There is no consumption today</p>
+}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<script>
+    var xValues = [];
+    var yValues = [];
+
+    @foreach (var hour in Model.ConsumptionHour)
+     {
+        @:xValues.push(@hour);
+     }
+
+        @foreach (var value in Model.ConsumptionValue)
+     {
+        @:yValues.push(@value);
+     }
+
+    new Chart("myChart", {
+        label: "Consumption",
+        type: "bar",
+        data: {
+        labels: xValues,
+            datasets: [{
+            backgroundColor: "black",
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Consumption"
+            }
+        }
+    });
+</script>

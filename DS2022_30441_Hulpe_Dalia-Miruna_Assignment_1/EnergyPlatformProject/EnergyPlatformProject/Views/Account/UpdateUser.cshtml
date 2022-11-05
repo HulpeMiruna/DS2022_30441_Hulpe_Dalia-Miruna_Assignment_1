@@ -1,0 +1,15 @@
+﻿@using EnergyPlatformProject.Models
+@model UserViewModel
+<form asp-controller="Account" asp-action="UpdateUser" method="post">
+
+    <input type="hidden" asp-for="Email" class="form-control" />
+    <div class="form-group row">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Update user</button>
+</form>

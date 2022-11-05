@@ -1,0 +1,21 @@
+﻿@using EnergyPlatformProject.Models
+@model AdminViewModel
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<form asp-controller="Account" asp-action="AddUser" method="get">
+    <button type="submit" class="btn btn-info">Add new user</button>
+</form>
+<div>
+    <partial name="_UserViewPartial" />
+</div>
+
+<form asp-controller="Device" asp-action="AddDevice" method="get">
+    <button type="submit" class="btn btn-info">Add new device</button>
+</form>
+<div>
+    <partial name="_DeviceViewPartial" />
+</div>
+

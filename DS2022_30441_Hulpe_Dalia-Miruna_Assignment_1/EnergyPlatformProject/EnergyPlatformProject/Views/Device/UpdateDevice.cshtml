@@ -1,0 +1,22 @@
+﻿@using EnergyPlatformProject.Models
+@model DeviceViewModel
+<form asp-controller="Device" asp-action="UpdateDevice" method="post">
+
+    <input type="hidden" asp-for="Id" class="form-control" />
+    <div class="form-group row">
+        <label asp-for="Description"></label><br>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group row">
+        <label asp-for="MaximuHourlyEnergyConsumtion"></label>
+        <input asp-for="MaximuHourlyEnergyConsumtion" class="form-control" />
+        <span asp-validation-for="MaximuHourlyEnergyConsumtion" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Update device</button>
+</form>
