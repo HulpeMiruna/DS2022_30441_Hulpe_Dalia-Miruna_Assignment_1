@@ -1,4 +1,4 @@
-using EnergyPlatform.BusinessLogic.Data;
+﻿using EnergyPlatform.BusinessLogic.Data;
 using EnergyPlatform.Repository.Entitys;
 using EnergyPlatformProgram.BusinessLogic.Constants;
 using EnergyPlatformProgram.BusinessLogic.Implementations;
@@ -35,7 +35,8 @@ namespace EnergyPlatformProject
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    options => options.EnableRetryOnFailure()));
 
             services.AddAutoMapper(typeof(Startup));
             services.AddDefaultIdentity<UserEntity>()
@@ -53,7 +54,8 @@ namespace EnergyPlatformProject
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(50);
 
                 options.AccessDeniedPath = "/Home/AccessDenied";
-
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
                 options.SlidingExpiration = true;
             });
 
