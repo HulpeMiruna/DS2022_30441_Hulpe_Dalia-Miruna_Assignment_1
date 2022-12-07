@@ -1,4 +1,5 @@
-﻿using EnergyPlatformProject.Models;
+﻿using EnergyPlatformProject.ConsumerService;
+using EnergyPlatformProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +14,7 @@ namespace EnergyPlatformProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRabitMQConsumer rabitMQConsumer)
         {
             _logger = logger;
         }

@@ -32,6 +32,15 @@ namespace EnergyPlatformProject.Controllers
         [HttpGet]
         public async Task<IActionResult> AddDevice()
         {
+            var consumption = new ConsumtionModel()
+            {
+                Id = Guid.NewGuid(),
+                DeviceId = new Guid("1568B32E-DAD5-4EBA-F73A-08DABE386E3F"),
+                Date = DateTime.Now,
+                Consumtion = 1.2f
+            };
+
+            await _deviceLogic.AddConsumtionAsync(consumption);
             return View();
         }
 
@@ -39,11 +48,6 @@ namespace EnergyPlatformProject.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDevice(DeviceViewModel deviceViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(deviceViewModel);
-            }
-
             var deviceModel = _mapper.Map<DeviceModel>(deviceViewModel);
 
             await _deviceLogic.AddAsync(deviceModel);
@@ -72,11 +76,6 @@ namespace EnergyPlatformProject.Controllers
         [HttpPost]
         public IActionResult UpdateDevice(DeviceViewModel deviceViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(deviceViewModel);
-            }
-
             var deviceModel = new DeviceModel()
             {
                 Id = deviceViewModel.Id,

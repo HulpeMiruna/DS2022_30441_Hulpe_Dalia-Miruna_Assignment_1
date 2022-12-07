@@ -23,5 +23,7 @@ namespace EnergyPlatformProgram.BusinessLogic.Interfaces
         Task<List<DeviceModel>> GetByOwnerIdAsync(Guid id);
 
         Task<List<ConsumtionModel>> GetConsumtionForDeviceAsync(Guid id, DateTime date);
+
+        Task AddConsumtionAsync(ConsumtionModel consumtion);
     }
 }

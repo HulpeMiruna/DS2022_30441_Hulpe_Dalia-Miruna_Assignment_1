@@ -91,5 +91,12 @@ namespace EnergyPlatformProgram.BusinessLogic.Implementations
 
             return consumption;
         }
+
+        public async Task AddConsumtionAsync(ConsumtionModel consumtion)
+        {
+            var consumtionEntity = _mapper.Map<ConsumptionEntity>(consumtion);
+
+            await _consumtionRepository.AddConsumtionAsync(consumtionEntity);
+        }
     }
 }

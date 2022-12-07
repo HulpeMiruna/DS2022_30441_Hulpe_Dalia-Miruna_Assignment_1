@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using EnergyPlatform.Repository.Entitys;
+using EnergyPlatformProgram.BusinessLogic.Constants;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using EnergyPlatform.Repository.Entitys;
-using EnergyPlatformProgram.BusinessLogic.Constants;
 
 namespace EnergyPlatformProject.Areas.Identity.Pages.Account
 {
@@ -23,7 +20,7 @@ namespace EnergyPlatformProject.Areas.Identity.Pages.Account
         private readonly SignInManager<UserEntity> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<UserEntity> signInManager, 
+        public LoginModel(SignInManager<UserEntity> signInManager,
             ILogger<LoginModel> logger,
             UserManager<UserEntity> userManager)
         {
@@ -77,35 +74,23 @@ namespace EnergyPlatformProject.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    var role = await _userManager.GetRolesAsync(user);
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            var userTest = await _userManager.FindByEmailAsync(Input.Email); // where db is ApplicationDbContext instance
 
-                    if (role.ElementAt(0) == RoleConstants.AdminRole)
-                    {
-                        return RedirectToAction("AdminPortal", "Account");
-                    }
+            //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            await _signInManager.SignInAsync(userTest, true);
 
-                    return RedirectToAction("UserPortal", "Account");
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+            var user = await _userManager.FindByEmailAsync(Input.Email);
+            var role = await _userManager.GetRolesAsync(user);
+
+            if (role.ElementAt(0) == RoleConstants.AdminRole)
+            {
+                return RedirectToAction("AdminPortal", "Account");
+            }
+
+            return RedirectToAction("UserPortal", "Account");
 
             // If we got this far, something failed, redisplay form
             return Page();

@@ -20,7 +20,7 @@ namespace EnergyPlatform.BusinessLogic.Data
 
             await CreateRolesAsync(roleManager, context);
             await CreateAdminAsync(context, userManager);
-            await CreateConsumptionAsync(context);
+           // await CreateConsumptionAsync(context);
         }
 
         #region Private
@@ -48,24 +48,24 @@ namespace EnergyPlatform.BusinessLogic.Data
 
         private static async Task CreateAdminAsync(ApplicationDbContext context, UserManager<UserEntity> userManager)
         {
-            var result = await context.Users.FirstOrDefaultAsync(e => e.Email.Equals("miruhulpe+Admin@yahoo.com"));
+            //var result = await context.Users.FirstOrDefaultAsync(e => e.Email.Equals("miruhulpe+Admin@yahoo.com"));
 
-            if (result != null)
-            {
-                return;
-            }
+            //if (result != null)
+            //{
+            //    return;
+            //}
 
             var user = new UserEntity
             {
 
-                Email = "miruhulpe+Admin@yahoo.com",
+                Email = "miruhulpe+Admin2@yahoo.com",
                 EmailConfirmed = true,
                 LockoutEnabled = true,
-                NormalizedEmail = "MIRUHULPE+ADMIN@YAHOO.COM",
-                NormalizedUserName = "MIRUNAHULPEADMIN",
-                UserName = "MirunaHulpeAdmin",
-                FirstName = "Miruna",
-                LastName = "Hulpe"
+                NormalizedEmail = "MIRUHULPE+ADMIN2@YAHOO.COM",
+                NormalizedUserName = "MIRUNAHULPEADMIN2",
+                UserName = "MirunaHulpeAdmin2",
+                FirstName = "Miruna2",
+                LastName = "Hulpe2"
             };
 
             var insertResult = await userManager.CreateAsync(user, "Aaa123!");

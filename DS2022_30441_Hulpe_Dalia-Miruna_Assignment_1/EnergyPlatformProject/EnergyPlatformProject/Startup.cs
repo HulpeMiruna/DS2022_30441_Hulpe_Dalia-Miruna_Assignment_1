@@ -3,7 +3,11 @@ using EnergyPlatform.Repository.Entitys;
 using EnergyPlatformProgram.BusinessLogic.Constants;
 using EnergyPlatformProgram.BusinessLogic.Implementations;
 using EnergyPlatformProgram.BusinessLogic.ServiceExtension;
+using EnergyPlatformProgram.Hubs;
+using EnergyPlatformProgram.Mappers;
+using EnergyPlatformProject.ConsumerService;
 using EnergyPlatformProject.Data;
+using EnergyPlatformProject.ReadSensorDataService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,9 +48,12 @@ namespace EnergyPlatformProject
                  .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddClaimsPrincipalFactory<UserClaimsFactory>();
+            services.AddScoped<IRabitMQConsumer, RabitMQConsumer>();
+            services.AddSingleton<INotificationService, NotificationService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddBusinessLogic();
+            services.AddHostedService<ReadSensorDataWorker>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -66,11 +73,19 @@ namespace EnergyPlatformProject
                 options.AddPolicy(RoleConstants.AdminRequirement,
                      policy => policy.RequireRole(RoleConstants.AdminRole));
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+            };
+
+            app.UseWebSockets();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -92,6 +107,7 @@ namespace EnergyPlatformProject
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<NotificationHub>("/chatHub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

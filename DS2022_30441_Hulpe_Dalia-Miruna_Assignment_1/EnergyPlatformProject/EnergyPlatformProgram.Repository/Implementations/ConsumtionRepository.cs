@@ -30,9 +30,9 @@ namespace EnergyPlatformProgram.Repository.Implementations
             return consumption;
         }
 
-        public async Task AddConsumtionAsync(List<ConsumptionEntity> consumption)
+        public async Task AddConsumtionAsync(ConsumptionEntity consumption)
         {
-            await _dbSet.AddRangeAsync(consumption);
+            await _dbSet.AddAsync(consumption);
 
             await _context.SaveChangesAsync();
         }

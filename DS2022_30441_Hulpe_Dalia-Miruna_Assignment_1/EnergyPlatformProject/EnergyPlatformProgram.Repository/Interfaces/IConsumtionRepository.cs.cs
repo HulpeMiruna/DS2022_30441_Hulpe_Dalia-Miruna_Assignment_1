@@ -9,5 +9,7 @@ namespace EnergyPlatformProgram.Repository.Interfaces
     public interface IConsumtionRepository
     {
         Task<List<ConsumptionEntity>> GetDeviceConsumtionAsync(Guid deviceId, DateTime date);
+
+        Task AddConsumtionAsync(ConsumptionEntity consumption);
     }
 }
