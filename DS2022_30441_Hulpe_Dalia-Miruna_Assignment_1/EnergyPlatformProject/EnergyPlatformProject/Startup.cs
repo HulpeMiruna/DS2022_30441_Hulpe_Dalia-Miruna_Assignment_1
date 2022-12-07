@@ -84,7 +84,7 @@ namespace EnergyPlatformProject
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
             };
 
-            app.UseWebSockets();
+            app.UseWebSockets(webSocketOptions);
 
             if (env.IsDevelopment())
             {

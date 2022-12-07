@@ -11,6 +11,6 @@ namespace EnergyPlatformProgram.Hubs
 {
     public interface INotificationService
     {
-        Task SendMessage(string user, string message);
+        Task SendMessage(string message);
     }
 }

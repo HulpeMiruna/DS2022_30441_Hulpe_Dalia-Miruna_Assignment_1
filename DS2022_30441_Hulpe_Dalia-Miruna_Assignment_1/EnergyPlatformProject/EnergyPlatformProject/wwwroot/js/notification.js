@@ -1,21 +1,15 @@
-﻿const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chathub")
-    .configureLogging(signalR.LogLevel.Information)
-    .build();
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-async function start() {
-    try {
-        await connection.start();
-        console.log("SignalR Connected.");
-    } catch (err) {
-        console.log(err);
-        setTimeout(start, 5000);
-    }
-};
-
-connection.onclose(async () => {
-    await start();
+//Disable the send button until connection is established
+connection.on("ReceiveMessage", function (message) {
+    var li = document.createElement("li");
+    var list = document.getElementById("notificationList").appendChild(li);
+    li.textContent = `${message}`;
+    console.log("OK");
 });
 
-// Start the connection.
-start();
+connection.start().then(function () {
+    console.log("Start");
+}).catch(function (err) {
+    return console.error(err.toString());
+});

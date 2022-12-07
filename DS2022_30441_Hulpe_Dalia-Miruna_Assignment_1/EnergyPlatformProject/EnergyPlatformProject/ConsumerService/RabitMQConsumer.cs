@@ -58,7 +58,7 @@ namespace EnergyPlatformProject.ConsumerService
                         Consumtion = (float)value.Measurement_value
                     };
 
-                    Console.WriteLine($"SensorData message received: {message}");
+                    //Console.WriteLine($"SensorData message received: {message}");
 
                     using (var scope = _scopeFactory.CreateScope())
                     {
@@ -66,16 +66,16 @@ namespace EnergyPlatformProject.ConsumerService
                         await deviceLogic.AddConsumtionAsync(consumption);
 
                         var device = await deviceLogic.FindByIdAsync(value.Device_id);
-                        
-                        //if (value.Measurement_value > double.Parse(device.MaximuHourlyEnergyConsumtion))
-                        //{
-                        //    await _notificationHub.SendMessage("", $"This value exceded the limit{value.Measurement_value} for the device at address: {device.Address}");
-                        //}
+
+                        if (value.Measurement_value > double.Parse(device.MaximuHourlyEnergyConsumtion))
+                        {
+                            await _notificationHub.SendMessage($"This value exceded the limit{value.Measurement_value} for the device at address: {device.Address}");
+                        }
                     };
                 };
                 //read the message
                 channel.BasicConsume(queue: "SensorData", autoAck: true, consumer: consumer);
-                Console.ReadKey();
+                //Console.ReadKey();
             };
         }
     }
